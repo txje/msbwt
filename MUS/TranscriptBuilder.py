@@ -54,7 +54,7 @@ class PathNode(object):
         terminate = False
         while not terminate:
             if len(kmer) != self.pathK:
-                print 'ERROR: DIFFERENT SIZED K-MER '+str(len(kmer))
+                print('ERROR: DIFFERENT SIZED K-MER '+str(len(kmer)))
                 raise Exception('ERROR')
         
             #First, perform all the counts of paths going both forwards and backwards
@@ -126,9 +126,9 @@ class PathNode(object):
                 perc = float(maxV)/total
                 
                 if self.trackReads == True:
-                    for i in xrange(r1[0], r1[1]):
+                    for i in range(r1[0], r1[1]):
                         self.readSet.add((int(self.msbwt.getSequenceDollarID(i)), 0))
-                    for i in xrange(r2[0], r2[1]):
+                    for i in range(r2[0], r2[1]):
                         self.readSet.add((int(self.msbwt.getSequenceDollarID(i)), 1))
                 
                 #if kmerCount > self.overloadThreshold:
@@ -190,7 +190,7 @@ class PathNode(object):
         #print
     
     def followNewHistory(self, newHistMer):
-        print 'UNHANDLED '
+        print('UNHANDLED ')
 
 class PathEdge(object):
     def __init__(self, edgeID, fromNodeID, toNodeID, edgeWeight, label, style='solid'):

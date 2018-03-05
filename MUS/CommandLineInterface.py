@@ -9,8 +9,8 @@ import logging
 import os
 import sys
 
-import MSBWTGen
-import util
+from MUS import MSBWTGen
+from MUS import util
 
 from MUSCython import CompressToRLE
 from MUSCython import GenericMerge
@@ -107,7 +107,7 @@ def mainRun():
         logger.info('Processes:\t'+str(args.numProcesses))
         if args.numProcesses > 1:
             logger.warning('Using multi-processing with slow disk accesses can lead to slower build times.')
-        print
+        print()
         if args.areUniform:
             #if they are uniform, use the method developed by Bauer et al., it's likely short Illumina seq
             if args.buildCompressed:
@@ -140,7 +140,7 @@ def mainRun():
         logger.info('Processes:\t'+str(args.numProcesses))
         if args.numProcesses > 1:
             logger.warning('Using multi-processing with slow disk accesses can lead to slower build times.')
-        print
+        print()
         seqFN = args.bwtDir+'/seqs.npy'
         offsetFN = args.bwtDir+'/offsets.npy'
         bwtFN = args.bwtDir+'/msbwt.npy'
@@ -164,14 +164,14 @@ def mainRun():
         logger.info('Processes:'+str(args.numProcesses))
         if args.srcDir == args.dstDir:
             raise Exception('Source and destination directories cannot be the same directory.')
-        print
+        print()
         MSBWTGen.compressBWT(args.srcDir+'/msbwt.npy', args.dstDir+'/comp_msbwt.npy', args.numProcesses, logger)
         
     elif args.subparserID == 'decompress':
         logger.info('Source Directory: '+args.srcDir)
         logger.info('Dest Directory: '+args.dstDir)
         logger.info('Processes: '+str(args.numProcesses))
-        print
+        print()
         MSBWTGen.decompressBWT(args.srcDir, args.dstDir, args.numProcesses, logger)
         #TODO: remove if srcdir and dstdir are the same?
         
@@ -183,7 +183,7 @@ def mainRun():
             logger.warning('Multi-processing is not supported at this time, but will be included in a future release.')
             numProcs = 1
             #logger.warning('Using multi-processing with slow disk accesses can lead to slower build times.')
-        print
+        print()
         #MSBWTGen.mergeNewMSBWT(args.outBwtDir, args.inputBwtDirs, args.numProcesses, logger)
         if len(args.inputBwtDirs) > 2:
             #this is a deprecated method, it may still work if you feel daring
@@ -198,20 +198,20 @@ def mainRun():
         
         #always print how many are found, users can parse it out if they want
         r = msbwt.findIndicesOfStr(args.kmer)
-        print r[1]-r[0]
+        print(r[1]-r[0])
         
         #dump the seqs if request
         if args.dumpSeqs:
-            for x in xrange(r[0], r[1]):
+            for x in range(r[0], r[1]):
                 dInd = msbwt.getSequenceDollarID(x)
-                print msbwt.recoverString(dInd)[1:]+','+str(dInd)
+                print(msbwt.recoverString(dInd)[1:]+','+str(dInd))
     
     elif args.subparserID == 'massquery':
         logger.info('Input:\t'+str(args.inputBwtDir))
         logger.info('Queries:\t'+str(args.kmerFile))
         logger.info('Output:\t'+args.outputFile)
         logger.info('Rev-comp:\t'+str(args.reverseComplement))
-        print
+        print()
         msbwt = MultiStringBWT.loadBWT(args.inputBwtDir, logger=logger)
         
         output = open(args.outputFile, 'w+')
@@ -243,7 +243,7 @@ def mainRun():
         logger.info('Finished conversion.')
         
     else:
-        print args.subparserID+" is currently not implemented, please wait for a future release."
+        print(args.subparserID+" is currently not implemented, please wait for a future release.")
 
 if __name__ == '__main__':
     mainRun()

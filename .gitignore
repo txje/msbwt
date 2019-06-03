@@ -1,0 +1,6 @@
+.eggs/
+build/
+dist/
+.vscode/
+__pycache__
+msbwt.egg-info/

@@ -57,9 +57,9 @@ cdef class RLE_BWT(BasicBWT.BasicBWT):
         self.dirName = dirName
         self.useMemmapRLE = useMemmap
         if useMemmap:
-            self.bwt = np.load(self.dirName+'/comp_msbwt.npy', 'r+')
+            self.bwt = np.load(self.dirName+'/comp_msbwt.npy'.encode('utf-8', 'ignore'), 'r+')
         else:
-            self.bwt = np.load(self.dirName+'/comp_msbwt.npy')
+            self.bwt = np.load(self.dirName+'/comp_msbwt.npy'.encode('utf-8', 'ignore'))
         self.bwt_view = self.bwt
         
         #build auxiliary structures
@@ -67,9 +67,9 @@ cdef class RLE_BWT(BasicBWT.BasicBWT):
         self.constructIndexing()
         self.constructFMIndex(logger)
         
-        if os.path.exists(self.dirName+'/lcps.npy'):
+        if os.path.exists(self.dirName+'/lcps.npy'.encode('utf-8', 'ignore')):
             self.lcpsPresent = True
-            self.lcps = np.load(self.dirName+'/lcps.npy', 'r+')
+            self.lcps = np.load(self.dirName+'/lcps.npy'.encode('utf-8', 'ignore'), 'r+')
             self.lcps_view = self.lcps
         else:
             self.lcpsPresent = False
@@ -91,7 +91,7 @@ cdef class RLE_BWT(BasicBWT.BasicBWT):
         #self.numPower = 2**self.numberBits
         #self.mask = 255 >> self.numberBits
         
-        cdef str abtFN = self.dirName+'/totalCounts.npy'
+        cdef str abtFN = (self.dirName+'/totalCounts.npy'.encode('utf-8', 'ignore')).decode('utf-8')
         if os.path.exists(abtFN):
             if self.useMemmapRLE:
                 self.totalCounts = np.load(abtFN, 'r+')
@@ -153,8 +153,8 @@ cdef class RLE_BWT(BasicBWT.BasicBWT):
         cdef np.ndarray[np.uint64_t, ndim=1, mode='c'] countsSoFar
         cdef np.uint64_t [:] countsSoFar_view
         
-        cdef str fmIndexFN = self.dirName+'/comp_fmIndex.npy'
-        cdef str fmRefFN = self.dirName+'/comp_refIndex.npy'
+        cdef str fmIndexFN = (self.dirName+'/comp_fmIndex.npy'.encode('utf-8', 'ignore')).decode('utf-8')
+        cdef str fmRefFN = (self.dirName+'/comp_refIndex.npy'.encode('utf-8', 'ignore')).decode('utf-8')
         
         if os.path.exists(fmIndexFN) and os.path.exists(fmRefFN):
             #both exist, just memmap them

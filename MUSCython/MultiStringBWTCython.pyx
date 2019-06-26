@@ -46,9 +46,6 @@ def loadBWT(bwtDir, useMemmap=True, logger=None):
     and assign the appropriate class preferring the decompressed version if both exist.
     @return - a ByteBWT, RLE_BWT, or none if neither can be instantiated
     '''
-    #bwtDir = bwtDir.decode('utf-8', 'ignore')
-    print(type('/test'.encode('utf-8', 'ignore')))
-    #print(type(bwtDir))
     if os.path.exists(bwtDir+'/msbwt.npy'.encode('utf-8', 'ignore')):
         msbwt = ByteBWT()
         msbwt.loadMsbwt(bwtDir, useMemmap, logger)

@@ -727,7 +727,7 @@ class CompressedMSBWT(BasicBWT):
         
         return ret
     
-def loadBWT(bwtDir, logger=None):
+def loadBWT(bwtDir, webHosts = None, logger=None):
     '''
     Generic load function, this is recommended for anyone wishing to use this code as it will automatically detect compression
     and assign the appropriate class preferring the decompressed version if both exist.
